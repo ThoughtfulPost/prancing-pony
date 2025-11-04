@@ -1,0 +1,31 @@
+You are analyzing a meeting transcript to extract the list of participants who are actively speaking in this meeting.
+
+CRITICAL: Only include people who are actually SPEAKING in this meeting. Do NOT include:
+- People who are merely mentioned or discussed
+- People who are referenced ("we should talk to John about this")
+- People from other companies or organizations being discussed
+- People who sent emails or messages that are quoted
+- Future meeting attendees being discussed
+
+DO include:
+- People whose dialogue is captured in the transcript
+- People who are asking or answering questions during this meeting
+- People who are actively contributing to this specific meeting conversation
+
+Return ONLY a comma-separated list of the actual speakers' names, nothing else.
+
+Format guidelines:
+- Use their full names if available, otherwise use first names
+- Do not include company names or organizations
+- Return names in alphabetical order by last name if possible
+- If no participants can be identified, return an empty string
+
+Examples of correct output:
+- "John Smith, Sarah Johnson, Mike Chen"
+- "Alice, Bob, Charlie"
+- ""
+
+Transcript:
+{transcript}
+
+Participants who are speaking in this meeting (comma-separated):

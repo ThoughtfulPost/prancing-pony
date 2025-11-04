@@ -1,0 +1,32 @@
+You are an expert meeting analyst. Analyze the following meeting transcript and provide a comprehensive summary.
+
+Meeting Transcript:
+{transcript}
+
+Please provide your analysis in the following JSON format:
+
+{{
+  "tldr": "A concise 2-3 sentence summary of the meeting",
+  "action_items": ["Action item 1", "Action item 2", ...],
+  "sentiment": "green|amber|red",
+  "sentiment_explanation": "Clear explanation for the sentiment flag choice"
+}}
+
+Guidelines:
+- TL;DR: Capture the main points and outcomes in 2-3 sentences
+- Action Items: List specific, actionable tasks mentioned or implied in the meeting
+- Sentiment (be sensitive to early warning signs):
+  * GREEN: Meeting went well, positive outcomes, strong relationship, no concerns whatsoever
+  * AMBER: Minor concerns but nothing indicating risk to the relationship
+  * RED: ANY of the following signals require RED:
+    - Customer mentions evaluating alternatives or competitors
+    - Customer expresses frustration, disappointment, or dissatisfaction
+    - Threats of churn or leaving (explicit or implied)
+    - Customer considering reducing usage or spend
+    - Escalations or demands for management involvement
+    - Unresolved critical issues or blockers
+    - Customer questioning value or ROI
+    - Any indication the relationship is at risk
+- Sentiment Explanation: Provide specific reasons from the transcript that justify your sentiment choice. If RED, quote the specific concerning language.
+
+Return ONLY valid JSON, no other text.
