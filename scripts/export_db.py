@@ -16,7 +16,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from app.database import SessionLocal
 from app.models.customer import Customer
-from app.models.vendor import Vendor
 from app.models.event import Event, Meeting
 from app.models.event_summary import EventSummary
 
@@ -44,21 +43,7 @@ def export_database(output_file: str = "db_export.json"):
                 "updated_at": customer.updated_at.isoformat() if customer.updated_at else None,
             })
 
-        # Export vendors
-        vendors = db.query(Vendor).all()
-        vendors_data = []
-        for vendor in vendors:
-            vendors_data.append({
-                "id": vendor.id,
-                "name": vendor.name,
-                "email": vendor.email,
-                "phone": vendor.phone,
-                "address": vendor.address,
-                "contact_person": vendor.contact_person,
-                "notes": vendor.notes,
-                "created_at": vendor.created_at.isoformat() if vendor.created_at else None,
-                "updated_at": vendor.updated_at.isoformat() if vendor.updated_at else None,
-            })
+
 
         # Export events (including meetings)
         events = db.query(Event).all()
@@ -97,7 +82,6 @@ def export_database(output_file: str = "db_export.json"):
         export_data = {
             "export_date": datetime.now().isoformat(),
             "customers": customers_data,
-            "vendors": vendors_data,
             "events": events_data,
             "event_summaries": summaries_data,
         }
@@ -108,7 +92,6 @@ def export_database(output_file: str = "db_export.json"):
 
         print(f"✅ Database exported successfully to {output_file}")
         print(f"   - Customers: {len(customers_data)}")
-        print(f"   - Vendors: {len(vendors_data)}")
         print(f"   - Events: {len(events_data)}")
         print(f"   - Event Summaries: {len(summaries_data)}")
 

@@ -17,7 +17,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from app.database import SessionLocal, engine
 from app.models.customer import Customer
-from app.models.vendor import Vendor
 from app.models.event import Event, Meeting
 from app.models.event_summary import EventSummary
 from app.database import Base
@@ -30,7 +29,6 @@ def clear_database(db):
     db.query(Meeting).delete()
     db.query(Event).delete()
     db.query(Customer).delete()
-    db.query(Vendor).delete()
     db.commit()
     print("✅ Database cleared")
 
@@ -76,23 +74,7 @@ def import_database(input_file: str = "db_export.json"):
         db.commit()
         print("✅ Customers imported")
 
-        # Import vendors
-        print(f"\n📊 Importing {len(data['vendors'])} vendors...")
-        for vendor_data in data["vendors"]:
-            vendor = Vendor(
-                id=vendor_data["id"],
-                name=vendor_data["name"],
-                email=vendor_data["email"],
-                phone=vendor_data["phone"],
-                address=vendor_data["address"],
-                contact_person=vendor_data["contact_person"],
-                notes=vendor_data["notes"],
-                created_at=datetime.fromisoformat(vendor_data["created_at"]) if vendor_data["created_at"] else None,
-                updated_at=datetime.fromisoformat(vendor_data["updated_at"]) if vendor_data["updated_at"] else None,
-            )
-            db.add(vendor)
-        db.commit()
-        print("✅ Vendors imported")
+
 
         # Import events
         print(f"\n📊 Importing {len(data['events'])} events...")
